@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int a[100001],n,dem = 0;
+bool OK = true; 
+
+void start(void)
+{
+	cin>>n;
+	for (int i=0;i<n;i++)
+		a[i] = 0;
+}
+
+void end(void)
+{
+	cout<<"Xau nhi phan thu: "<<dem++<<": ";
+	for (int i=0;i<n;i++)
+		cout<<a[i];
+	cout<<endl;
+}
+
+void perform(void)
+{
+	int i = n-1;
+	for (i;i>=0;i--)
+	{
+		if (a[i] == 1)
+			a[i] = 0;
+		else
+			break;
+	}
+	if (i >= 0)
+		a[i] = 1;
+	else
+		OK = false;
+}
+
+int main()
+{
+	start();
+	while (OK == true)
+	{
+		end();
+		perform();
+	}
+}
