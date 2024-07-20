@@ -24,6 +24,6 @@ int main()
 	while (t--)
 	{
 		start();
-		cout<<tong(n);
+		cout<<tong(n)<<endl;
 	}
 }
