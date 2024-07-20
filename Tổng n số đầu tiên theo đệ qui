@@ -2,12 +2,11 @@
 
 using namespace std;
 
-int n,sum = 0;
+int n;
 
 void start(void)
 {
 	cin>>n;
-	sum = 0;
 }
 
 int tong(int n)
