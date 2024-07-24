@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n, a[100], dem = 0;
+bool cot[100], d1[100], d2[100];
+
+void in()
+{
+	dem++;
+	cout<<"Truong hop thu "<<dem<<": ";
+    for (int i = 1; i <= n; i++)
+        cout<<a[i]<<" ";
+    cout << endl;
+}
+
+void Try(int i)
+{
+    for (int j = 1; j <= n; j++)
+    {
+        if (cot[j] == true && d1[i - j + n] == true && d2[i + j - 1] == true)
+        {
+            cot[j] = false;
+            d1[i - j + n] = false;
+            d2[i + j - 1] = false;
+            a[i] = j;
+            if (i == n)
+                in();
+            else
+                Try(i + 1);
+
+            cot[j] = true;
+            d1[i - j + n] = true;
+            d2[i + j - 1] = true;
+        }
+    }
+}
+
+int main()
+{
+    cin >> n;
+	memset(cot,true,sizeof(cot));
+	memset(d1,true,sizeof(d1));
+	memset(d2,true,sizeof(d2));
+    Try(1);
+}
