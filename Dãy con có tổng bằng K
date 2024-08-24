@@ -1,0 +1,66 @@
+  	#include <bits/stdc++.h>
+
+using namespace std;
+
+int a[10005], b[10005], n, m;
+vector<vector<int>> v;
+
+int sum(int k) {
+    int sum = 0;
+    for (int i = 1; i <= k; i++) {
+        sum += b[a[i]];
+    }
+    return sum == m;
+}
+
+void in(int k) {
+    vector<int> vec;
+    for (int i = 1; i <= k; i++)
+        vec.push_back(b[a[i]]);
+    v.push_back(vec);
+}
+
+void Try(int i, int k) {
+    for (int j = a[i - 1] + 1; j <= n - k + i; j++) {
+        a[i] = j;
+        if (i == k) {
+            if (sum(k))
+                in(k);
+        } else {
+            Try(i + 1, k);
+        }
+    }
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        cin >> n >> m;
+        v.clear();
+        for (int i = 1; i <= n; i++) {
+            cin >> b[i];
+        }
+        sort(b+1,b+n+1);
+        for (int k = 1; k <= n; k++) {
+            Try(1, k);
+        }
+        sort(v.begin(), v.end());
+        for (const auto &vec : v) {
+        	cout<<"[";
+            for (size_t j = 0; j < vec.size(); j++) {
+                cout << vec[j];
+                if (j < vec.size() - 1) {
+                    cout << " "; 
+                }
+            }
+            cout<<"]";
+    		cout<<" ";
+        }
+        if (v.empty())
+            cout << -1;
+        cout<<endl;
+    }
+
+    return 0;
+}
