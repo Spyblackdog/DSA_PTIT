@@ -1,0 +1,65 @@
+/* Chú ý coi mỗi dãy con như một xâu ký tự và sắp xếp theo thứ tự từ điển 
+VD: "3 11" và "3 7" 
+So sánh thấy 3 = 3, 11 và 7 nhưng coi mỗi dãy con như một xây ký tự => 1 < 7
+=> "3 11" đứng trước "3 7"
+*/
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int b[1005],a[1005],n;
+vector <vector<string>> v;
+
+int tang(int k){
+	int cnt = 1;
+	for (int i=2;i<=k;i++){
+		if (b[a[i]] < b[a[i - 1]]){
+			cnt = 0;
+			break;
+		}
+	}
+	if (cnt == 1)
+		return 1;
+		
+	return 0;
+}
+
+void them(int k){
+	vector <string> vec;
+	for (int i=1;i<=k;i++){
+		vec.push_back(to_string(b[a[i]]));
+	}
+	v.push_back(vec);
+}
+
+void Try(int i,int k){
+	for (int j=a[i - 1] + 1;j<=n-k+i;j++){
+		a[i] = j;
+		if (i == k){
+			if (tang(k) == 1)
+				them(k);
+		}else{
+			Try(i+1,k);
+		}
+	}
+}
+
+int main(){
+	cin>>n;
+	for (int i=1;i<=n;i++){
+		cin>>b[i];
+	}
+	for (int k=2;k<=n;k++){
+		Try(1,k);
+	}
+	sort(v.begin(),v.end());
+	for (int i=0;i<v.size();i++){
+		for (int j=0;j<v[i].size();j++){
+			cout<<v[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	
+	return 0;
+}
