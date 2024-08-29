@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int a[1005];
+vector<vector<int>> v;
+
+void them(void){
+	vector <int> vec;
+	for (int i=1;i<=8;i++){
+		vec.push_back(a[i]);
+	}
+	v.push_back(vec);
+}
+
+int check(void) {
+    if (a[3] == 2)
+    	return 0;
+    if (a[5] == 0)
+    	return 0;
+    if (a[1] == 0 && a[2] == 0)
+		return 0;
+	if (a[3] == 0 && a[4] == 0)
+		return 0;
+    
+    return 1;
+}
+
+void Try(int i){
+	for (int j=0;j<=2;j+=2){
+		a[i] = j;
+		if (i == 8){
+			if (check() == 1)
+				them();
+		}
+		else
+			Try(i+1);
+	}
+}
+
+int main(){
+	Try(1);
+	for (int i=0;i<v.size();i++){
+		cout<<v[i][0]<<v[i][1];
+		cout<<"/"<<v[i][2]<<v[i][3]<<"/";
+		cout<<v[i][4]<<v[i][5]<<v[i][6]<<v[i][7]<<endl;
+	}
+	
+	return 0;
+}
