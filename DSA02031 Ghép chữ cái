@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, a[1005], chuaxet[1005];
+char c;
+
+void in(void) {
+	for (int i = 1; i <= n; i++)
+		cout << char(a[i] + 'A' - 1);
+	cout << endl;
+}
+
+int check(void) {
+	for (int i = 1; i <= n; i++) {
+		if (i != 1 && i != n) {
+			if (a[i] == 1 || a[i] == 5) {
+				if (a[i+1] != 1 && a[i-1] != 1 && a[i+1] != 5 && a[i-1] != 5) {
+					return 0;
+				}
+			}
+		}
+	}
+	
+	return 1;
+}
+
+
+void Try(int i) {
+	for (int j = 1; j <= n; j++) {
+		if (chuaxet[j] == 1) {
+			a[i] = j;
+			chuaxet[j] = 0;
+			if (i == n) {
+				if (check())
+					in();
+			} else
+				Try(i + 1);
+			chuaxet[j] = 1;
+		}
+	}
+}
+
+int main() {
+	cin >> c;
+	n = int(c) - 'A' + 1;
+	if (n >= 4 && n <= 8) {
+		for (int i = 1; i <= n; i++)
+			chuaxet[i] = 1;
+		Try(1);
+	}
+	return 0;
+}
