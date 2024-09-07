@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n,a[10005],cnt = 0;
+vector <vector<int>> vec;
+vector <int> v;
+
+void Try(int pre,int sum){
+	for (int j=pre;j<=n;j++){
+		if (sum + a[j] <= n){
+			v.push_back(a[j]);
+			if (sum + a[j] == n){
+				vec.push_back(v);
+				cnt++;
+			}else{
+				Try(j , sum + a[j]);
+			}
+			v.pop_back();
+		}
+	}
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		cin>>n;
+		cnt = 0;
+		for (int i=n;i>=1;i--)
+			a[n-i+1] = i;
+		Try(1,0);
+//			sort(vec.begin(),vec.end());
+//			reverse(vec.begin(),vec.end());
+			cout<<cnt<<endl;
+			for (auto x : vec){
+				cout<<"(";
+				for (int i=0;i<x.size();i++){
+					cout<<x[i];
+					if (i != x.size() - 1)
+						cout<<" ";
+				}
+				cout<<") ";
+			}
+		cout<<endl;
+		vec.clear();
+	}
+
+	return 0;
+}
