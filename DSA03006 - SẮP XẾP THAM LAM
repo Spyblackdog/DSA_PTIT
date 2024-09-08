@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n;
+		cin>>n;
+		int a[10005],b[10005];
+		for (int i=0;i<n;i++){
+			cin>>a[i];
+			b[i] = a[i];
+		}
+		sort(b,b+n);
+		bool check = true;
+		for (int i=0;i<n;i++){
+			if (a[i] != b[i] && a[i] != b[n-i-1]){
+				check = false;
+				break;
+			}
+		}
+		if (check == true)
+			cout<<"Yes"<<endl;
+		else
+			cout<<"No"<<endl;
+	}
+	
+	return 0;
+}
+// Ý tưởng là tạo một mảng b như mảng a sau đó sắp xếp lại mảng b 
+// Khi mảng được sắp xếp lại phần tử sẽ nằm ở vị trí ban đầu hoặc đối xứng 
+/*  Ví dụ : 
+Mảng            a[] = { 1, 6, 3, 4, 5, 2, 7 }
+Mảng b được sắp xếp = { 1, 2, 3, 4, 5, 6, 7 } 
+Ví dụ với phần tử 1 sau khi được sắp xếp chỉ có thể đứng ở vị trí đầu tiên hoặc cuối cùng xét lần lượt các phần tử nếu có một phần tử sai vị trí dừng lại và in ra "No"
+*/
