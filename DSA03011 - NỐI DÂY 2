@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define ll long long
+const long long MOD = 1e9 + 7;
+
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        priority_queue<ll, vector<ll>, greater<ll>> q;  
+        for (int i = 0; i < n; i++) {
+            ll c;
+            cin >> c;
+            q.push(c);
+        }
+
+        ll sum = 0;
+        while (q.size() > 1) {
+            ll top1 = q.top();
+            q.pop();
+            ll top2 = q.top();
+            q.pop();
+            ll res = (top1 + top2)%MOD;
+            sum = (sum + res) % MOD;
+
+            q.push(res);  
+        }
+
+        cout << sum % MOD << endl;  
+    }
+
+    return 0;
+}
