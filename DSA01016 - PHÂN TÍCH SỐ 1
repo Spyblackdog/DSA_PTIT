@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n,m;
+bool ok = true;
+
+void solve(vector <int> &v){
+    cout<<"(";
+    for (int l = 0;l<v.size();l++){
+    	cout<<v[l];
+    	if (l != v.size() - 1)
+    		cout<<" ";
+	}      
+    cout<<")"<<" ";
+    int j = v.size()-1;
+    while (j >= 0 && v[j] == 1){
+        j--;
+    }
+    if (j >= 0 ){
+		v[j] = v[j] - 1;
+        int sum = 0;
+        for (int k = j + 1;k<v.size();k++){
+            sum += v[k];
+        }
+        sum++;
+        v.resize(j + 1);
+        while (sum > 0){
+            if (sum >= v[j]){
+                v.push_back(v[j]);
+                sum -= v[j];
+            }else{
+                v.push_back(sum);
+                sum = 0;
+            }
+        }
+    }else{
+        ok = false;
+    }
+}
+
+int main(){
+    int t;
+    cin>>t;
+    while (t--){
+        cin>>n;
+		ok = true;
+        vector <int> v;
+        v.push_back(n);
+        while (ok == true){
+            solve(v);
+        }
+        cout<<endl;
+        v.clear();
+		
+    }
+ 
+    return 0;
+}
