@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+
+#define ll long long
+
+using namespace std;
+
+void solve(ll n,ll k,ll f[]){
+    while (n > 2){
+        if (k <= f[n - 2]){
+            n -= 2;
+        }else{
+            k = k - f[n - 2];
+            n -= 1;
+        }
+    }
+    if (n == 2){
+        cout<<1<<endl;
+    }else{
+        cout<<0<<endl;
+    }
+}
+
+int main(){
+    int t;
+    cin>>t;
+    ll fibo[92];
+    fibo[0] = 0;
+    fibo[1] = 1;
+    for (int i=2;i<=92;i++){
+        fibo[i] = fibo[i-2] + fibo[i-1];
+    }
+    while (t--){
+        ll n,k;
+        cin>>n>>k;
+        solve(n,k,fibo);
+    }
+
+    return 0;
+}
