@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+    int n,s;
+    cin>>n>>s;
+    int s1 = s;
+    int a[n] = {0},b[n] = {0};
+    if (n*9 < s || s == 0) {
+        cout<<"-1 -1"<<endl;
+    }else{
+        for (int i=n-1;i>=0;i--){
+            if (s >= 9){
+                a[i] = 9;
+                s -= 9;
+            }else{
+                a[i] = s;
+                s = 0;
+            }
+        }
+        if (a[0] == 0){
+            a[0] = 1;
+            int j = 1;
+            while (a[j] == 0){
+                j++;
+            }
+            a[j]--;
+        }
+        for (int j=0;j<n;j++){
+            if (s1 >= 9){
+                b[j] = 9;
+                s1 -= 9;
+            }else{
+                b[j] = s1;
+                s1 = 0;
+            }
+        }
+        for (int i=0;i<n;i++)
+            cout<<a[i];
+        cout<<" ";
+        for (int j=0;j<n;j++)
+            cout<<b[j];
+
+    }
+
+    return 0;
+}
