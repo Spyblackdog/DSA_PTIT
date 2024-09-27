@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define ll long long 
+
+using namespace std;
+
+void solve(ll n,ll k){
+    while (1){
+        ll mid = pow(2,n-1);
+        if (n == 1){
+            cout<<"A"<<endl;
+            break;
+        }
+        if (k == mid){
+            cout<<char(n + 64)<<endl;
+            break;
+        }
+        if (k < mid){
+            n--;
+        }else{
+            k -= mid;
+            n--;
+        }
+    }
+}
+
+int main(){
+    int t;
+    cin>>t;
+    while (t--){
+        ll n,k;
+        cin>>n>>k;
+        solve(n,k);
+    }
+
+    return 0;
+}
