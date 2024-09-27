@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+    int t;
+    cin>>t;
+    while (t--){
+        int k;
+        string s;
+        cin>>k;
+        cin>>s;
+        map <char,int> m;
+        for (int i=0;i<s.size();i++){
+            m[s[i]]++;
+        }
+        vector <int> v;
+        for (auto x : m){
+            v.push_back(x.second);
+        }
+        while (k > 0){
+            sort(v.begin(),v.end());
+            v[v.size() - 1]--;
+            k--;
+        }
+        long long sum = 0;
+        for (auto x : v){
+            sum += x*x;
+        }
+        cout<<sum<<endl;
+    }
+
+    return 0;
+}
