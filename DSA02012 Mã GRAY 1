@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n;
+		cin>>n;
+		int a[10005];
+		for (int i=1;i<=n;i++)
+			a[i] = 0;
+		bool ok = true;
+		while (ok == true){
+			int b[10005];
+			b[1] = a[1];
+			for (int i=2;i<=n;i++){
+				if (a[i] == a[i - 1])
+					b[i] = 0;
+				else
+					b[i] = 1;
+			}
+			for (int i=1;i<=n;i++)
+				cout<<b[i];
+			cout<<" ";
+			int j = n;
+			while (j > 0 && a[j] == 1){
+				a[j] = 0;
+				j--;
+			}
+			if (j == 0)
+				ok = false;
+			else
+				a[j] = 1;
+		}
+		cout<<endl;
+	}
+	
+	return 0;
+}
