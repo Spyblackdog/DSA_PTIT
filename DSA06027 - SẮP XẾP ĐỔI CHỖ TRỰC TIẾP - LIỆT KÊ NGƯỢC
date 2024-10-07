@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+    int t;
+    cin>>t;
+    while (t--){
+        int n, cnt = 0;
+        cin>>n;
+        int a[n];
+        vector <vector<int>> v;
+        for (int i=0;i<n;i++)
+            cin>>a[i];
+        for (int i=0;i<n;i++){
+            for (int j=i+1;j<n;j++){
+                if (a[i] > a[j])
+                    swap(a[i],a[j]);
+            }
+            if (i < n - 1){
+                vector <int> vec;
+                for (int k=0;k<n;k++)
+                    vec.push_back(a[k]);
+                v.push_back(vec);
+                cnt++;
+            }
+        }
+        for (int i=v.size()-1;i>=0;i--){
+        	cout<<"Buoc "<<cnt<<": ";
+        	for (int j=0;j<v[i].size();j++){
+        		cout<<v[i][j]<<" ";
+			}
+			cout<<endl;
+			cnt--;
+		}
+        cout<<endl;
+    }
+
+    return 0;
+}
