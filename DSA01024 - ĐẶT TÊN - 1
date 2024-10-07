@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n,k,a[1005];
+set <string> se;
+string b[10005];
+
+void in(void)
+{
+	for (int i=1;i<=k;i++)
+		cout<<b[a[i]]<<" ";
+	cout<<endl;
+}
+
+void Try(int i)
+{
+	for (int j= a[i-1]+1;j<=n-k+i;j++)
+	{
+		a[i] = j;
+		if (i == k)
+			in();
+		else
+			Try(i+1);
+	}
+}
+
+int main()
+{
+	cin>>n>>k;
+	for (int i=0;i<n;i++){
+		string s;
+		cin>>s;
+		se.insert(s);
+	}
+	n = se.size();
+	int cnt = 1;
+	for (auto x : se){
+		b[cnt] = x;
+		cnt++;
+	}
+	Try(1);
+	
+	return 0;
+}
