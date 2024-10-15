@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *next;
+};
+
+typedef struct node node;
+
+node *makenode(int x){
+	node *newnode = new node();
+	newnode -> next = NULL;
+	newnode -> data = x;
+	
+	return newnode;
+}
+
+void themf(node* &head,int x){
+	node *newnode = makenode(x);
+	newnode -> next = head;
+	head = newnode;
+}
+
+void duyet(node* head){
+	while (head != NULL){
+		cout<<head -> data<<" ";
+		head = head -> next;
+	}
+}
+
+int dem(node *head){
+	int cnt = 0;
+	while (head != NULL){
+		cnt++;
+		head = head -> next;
+	}
+	
+	return cnt;
+}
+
+void theml(node* &head,int x){
+	node *newnode = makenode(x);
+	if (head == NULL)
+		head = makenode(x);
+	else{
+		node *temp = head;
+		while (temp -> next != NULL){
+			temp = temp -> next;
+		}
+		temp -> next = newnode;
+	}
+	
+}
+
+void themp(node *head,int x,int k){
+	node *newnode = makenode(x);
+	if (k == 1){
+		themf(head,x);
+		return;
+	}else{
+		int cnt = 0;
+		node *temp = head;
+		while (cnt < k){
+			temp =  temp->next;
+		}
+		node *temp2 = temp;
+		temp = temp -> next;
+		newnode -> next = temp;
+		temp2 -> next = newnode;
+	}
+}
+
+int main(){
+	node *head = NULL;
+	theml(head,10);
+	themf(head,5);
+	theml(head,12);
+	duyet(head);
+	
+	return 0;
+}
