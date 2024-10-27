@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		stack <int> st;
+		st.push(-1);
+		string s;
+		cin>>s;
+		int maxe = INT_MIN;
+		for (int i=0;i<s.length();i++){
+			if (s[i] == '('){
+				st.push(i);
+			}else{
+				st.pop();
+				if (!st.empty()){
+					maxe = max(maxe,i - st.top());
+				}else{
+					st.push(i);
+				}
+			}
+		}
+		cout<<maxe<<endl;
+	}
+	
+	return 0;
+}
