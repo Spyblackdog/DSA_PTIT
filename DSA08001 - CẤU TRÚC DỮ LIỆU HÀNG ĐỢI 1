@@ -1,0 +1,121 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *next;	
+};
+
+node *makenode(int x){
+	node *newnode = new node();
+	newnode -> data = x;
+	newnode -> next = NULL;
+	
+	return newnode;
+}
+
+void push(node* &head,int x){
+	node *newnode = makenode(x);
+	if (head == NULL){
+		head = newnode;
+	}else{
+		node *temp = head;
+		while (temp -> next != NULL){
+			temp = temp -> next;
+		}
+		temp -> next = newnode;
+	}
+	
+}
+
+void pop(node* &head){
+	if (head == NULL){
+		return;
+	}
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	node *temp = head;
+	head = head -> next;
+	delete temp;
+}
+
+int count(node *head){
+	int cnt = 0;
+	while (head != NULL){
+		cnt++;
+		head = head -> next;
+	}
+	
+	return cnt;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		node *head = NULL;
+		int n;
+		cin>>n;
+		while (n--){
+			int a;
+			cin>>a;
+			switch(a){
+				case 1:{
+					if (head == NULL)
+						cout<<0<<endl;
+					else{
+						cout<<count(head)<<endl;
+					}
+					break;
+				}
+				case 2:{
+					if (head == NULL)
+						cout<<"YES"<<endl;
+					else
+						cout<<"NO"<<endl;
+					break;
+				}
+				case 3:{
+					int b;
+					cin>>b;
+					push(head,b);
+					break;
+				}
+				case 4:{
+					if (head != NULL){
+						pop(head);
+					}
+					break;
+				}
+				case 5:{
+					if (head == NULL)
+						cout<<-1<<endl;
+					else{
+						cout<<head -> data<<endl;
+					}
+					break;
+				}
+				case 6:{
+					if (head == NULL)
+						cout<<-1<<endl;
+					else{
+						node *temp = head;
+						while (temp -> next != NULL){
+							temp = temp -> next;
+						}
+						cout<<temp -> data<<endl;
+					}
+					break;
+				}
+			}
+		}
+	}
+	
+	
+	
+	return 0;
+}
