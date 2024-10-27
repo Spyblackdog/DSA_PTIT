@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *next;	
+};
+
+typedef struct node node;
+
+node *makenode(int x){
+	node *newnode = new node();
+	newnode -> next = NULL;
+	newnode -> data = x;
+	
+	return newnode;
+}
+
+void push(node* &head,int x){
+	node *newnode = makenode(x);
+	if (head == NULL)
+		head = newnode;
+	else{
+		node *temp = head;
+		while (temp -> next != NULL){
+			temp = temp -> next;
+		}
+		temp -> next = newnode;
+	}
+}
+
+void pop(node* &temp){
+	if (temp == NULL || temp -> next == NULL){
+		return;
+	}
+	node *temp2 = temp -> next;
+	temp -> next = 	temp -> next -> next;
+	delete temp2;
+}
+
+void duyet(node *head){
+	while (head != NULL){
+		cout<<head->data<<" ";
+		head = head -> next;
+	}
+}
+
+int main(){
+	node *head = NULL;
+	int n;
+	cin>>n;
+	while (n--){
+		int c; cin>>c;
+		push(head,c);
+	}
+	int a;	cin>>a;
+	while (head != NULL && head -> data == a){
+		node *dele = head;
+		head = head -> next;
+		delete dele;
+	}
+	node *temp = head;
+	while (temp != NULL && temp->next != NULL){
+		if (temp -> next -> data == a){
+			pop(temp);
+		}else{
+			temp = temp -> next;
+		}
+	}
+	duyet(head);
+	
+	return 0;
+}
