@@ -7,8 +7,6 @@ struct node{
 	node *next;	
 };
 
-typedef struct node node;
-
 node *makenode(int x){
 	node *newnode = new node();
 	newnode -> next = NULL;
@@ -19,9 +17,9 @@ node *makenode(int x){
 
 void push(node* &head,int x){
 	node *newnode = makenode(x);
-	if (head == NULL)
+	if (head == NULL){
 		head = newnode;
-	else{
+	}else{
 		node *temp = head;
 		while (temp -> next != NULL){
 			temp = temp -> next;
@@ -30,20 +28,39 @@ void push(node* &head,int x){
 	}
 }
 
-void pop(node* &temp){
-	if (temp == NULL || temp -> next == NULL){
+void pop(node* &head,node* &nodedl){
+	if (head == NULL || nodedl == NULL){
 		return;
 	}
-	node *temp2 = temp -> next;
-	temp -> next = 	temp -> next -> next;
-	delete temp2;
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	if (head == nodedl){
+		head = head -> next;
+		delete nodedl;
+		return;
+	}
+	node *temp = head;
+	while (temp != NULL && temp -> next != nodedl){
+		temp = temp -> next;
+	}
+	if (temp != NULL){
+		temp -> next = nodedl -> next;
+		delete nodedl;
+	}
 }
 
 void duyet(node *head){
 	while (head != NULL){
-		cout<<head->data<<" ";
+		cout<<head -> data<<" ";
 		head = head -> next;
 	}
+}
+
+bool empty(node *head){
+	return head == NULL;
 }
 
 int main(){
@@ -51,22 +68,19 @@ int main(){
 	int n;
 	cin>>n;
 	while (n--){
-		int c; cin>>c;
-		push(head,c);
+		int a;
+		cin>>a;
+		push(head,a);
 	}
-	int a;	cin>>a;
-	while (head != NULL && head -> data == a){
-		node *dele = head;
-		head = head -> next;
-		delete dele;
-	}
+	int b;
+	cin>>b;
 	node *temp = head;
-	while (temp != NULL && temp->next != NULL){
-		if (temp -> next -> data == a){
-			pop(temp);
-		}else{
-			temp = temp -> next;
+	while (temp != NULL){
+		node *nextnode = temp -> next;
+		if (temp -> data == b){
+			pop(head,temp);
 		}
+		temp = nextnode;
 	}
 	duyet(head);
 	
