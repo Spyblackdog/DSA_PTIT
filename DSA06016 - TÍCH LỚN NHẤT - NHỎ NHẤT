@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+#define ll long long
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		ll n,m;
+		cin>>n>>m;
+		ll a[n],b[m];
+		ll max = INT_MIN,min = INT_MAX;
+		for (int i=0;i<n;i++){
+			cin>>a[i];
+			if (max < a[i])
+				max = a[i];
+		}
+		for (int i=0;i<n;i++){
+			cin>>b[i];
+			if (min > b[i])
+				min = b[i];
+		}
+		cout<<min*max<<endl;
+	}
+	
+	return 0;
+}
