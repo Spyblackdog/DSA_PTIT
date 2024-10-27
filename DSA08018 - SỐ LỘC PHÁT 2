@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+
+#define ll long long
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n;
+		cin>>n;
+		ll m = pow(10,n)-1;
+		queue <string> q;
+		q.push("6");
+		q.push("8");
+		int cnt = 0;
+		vector <ll> v;
+		while (!q.empty()){
+			ll num = stoll(q.front());
+			if (num < m){
+				cnt++;
+				v.push_back(num);
+			}
+			q.pop();
+			if (num < m){
+				q.push(to_string(num) + "6");
+				q.push(to_string(num) + "8");
+			}else{
+				break;
+			}
+		}
+		cout<<cnt<<endl;
+		for (auto x : v){
+			cout<<x<<" ";
+		}
+		cout<<endl;
+	}
+	
+	
+	return 0;
+}
