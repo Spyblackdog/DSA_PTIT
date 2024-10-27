@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		vector <int> v;
+		int n,m,l;
+		cin>>n>>m>>l;
+		int a[n],b[m],c[l];
+		for (int i=0;i<n;i++)
+			cin>>a[i];
+		for (int i=0;i<m;i++)
+			cin>>b[i];
+		for (int i=0;i<l;i++)
+			cin>>c[i];
+		int j=0,q=0,k=0;
+		while (j < n && q < m && k < l){
+			if (a[j] == b[q] && b[q] == c[k]){
+				v.push_back(a[j]);
+				j++;
+				q++;
+				k++;
+			}else if (a[j] < b[q]){
+				j++;
+			}else if (b[q] < c[k]){
+				q++;
+			}else{
+				k++;
+			}
+		}
+		if (v.size() == 0)
+			cout<<-1;
+		else{
+			for (auto x : v)
+				cout<<x<<" ";
+		}
+		cout<<endl;
+	}
+	
+	return 0;
+}
