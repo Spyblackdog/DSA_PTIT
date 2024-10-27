@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	string data;
+	node *next;
+};
+
+typedef struct node node;
+
+node *makenode(string x){
+	node *newnode = new node();
+	newnode -> next = NULL;
+	newnode -> data = x;
+	
+	return newnode;
+}
+
+bool Empty(node *head){
+	return head == NULL;
+}
+
+void push(node* &head,string x){
+	node *newnode = makenode(x);
+	if (head == NULL)
+		head = newnode;
+	else{
+		newnode -> next = head;
+		head = newnode;
+	}
+}
+
+void pop(node* &head){
+	if (head == NULL)
+		return;
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	node *temp = head;
+	head = head -> next;
+	
+	delete temp;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		node *head = NULL;
+		string s;
+		cin>>s;
+		for (int i = s.length() - 1;i>=0;i--){
+			if (s[i] == '+' || s[i] == '-' || s[i] == '/' || s[i] == '*'){
+				int num1 = stoi(head -> data);
+				pop(head);
+				int num2 = stoi(head -> data);
+				pop(head);
+				int temp = 0;
+				if (s[i] == '+')
+					temp = num1 + num2;
+				if (s[i] == '-')
+					temp = num1 - num2;
+				if (s[i] == '*')
+					temp = num1 * num2;
+				if (s[i] == '/')
+					temp = num1 / num2;
+				string se = to_string(temp);
+				push(head,se);
+			}else{
+				push(head,string(1,s[i]));
+			}
+		}
+		cout<<head -> data<<endl;
+	}
+	
+	return 0;
+}
