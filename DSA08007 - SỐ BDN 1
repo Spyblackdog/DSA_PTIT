@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+#define ll long long
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int cnt = 0;
+		ll n;
+		cin>>n;
+		queue <ll> q;
+		q.push(1);
+		while (q.front() <= n){
+			ll num = q.front();
+			q.pop();
+			if (num > n)
+				break;
+			cnt++;
+			q.push(num * 10);
+			q.push(num * 10 + 1);
+		}
+		cout<<cnt<<endl;
+	}
+	
+	return 0;
+}
