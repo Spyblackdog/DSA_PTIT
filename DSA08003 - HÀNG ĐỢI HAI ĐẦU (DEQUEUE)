@@ -1,0 +1,116 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *next;	
+};
+
+node *makenode(int x){
+	node *newnode = new node();
+	newnode -> data = x;
+	newnode -> next = NULL;
+	
+	return newnode;
+}
+
+void pushf(node* &head,int x){
+	node *newnode = makenode(x);
+	if (head == NULL){
+		head = newnode;
+	}else{
+		newnode -> next = head;
+		head = newnode;
+	}
+}
+
+void popf(node* &head){
+	if (head == NULL)
+		return;
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	node *temp = head;
+	head = head -> next;
+	delete temp;
+}
+
+void printf(node *head){
+	cout<<head -> data<<endl;
+}
+
+void pushb(node* &head,int x){
+	node *newnode = makenode(x);
+	if (head == NULL){
+		head = newnode;
+	}else{
+		node *temp = head;
+		while (temp -> next != NULL){
+			temp = temp -> next;
+		}
+		temp -> next = newnode;
+	}
+}
+
+void popb(node* &head){
+	if (head == NULL)
+		return;
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	node *temp = head;
+	while (temp -> next -> next != NULL){
+		temp = temp -> next;
+	}
+	node *dl = temp -> next;
+	temp -> next = NULL;
+	delete dl;
+}
+
+void printb(node *head){
+	while (head -> next != NULL){
+		head = head -> next;
+	}
+	cout<<head -> data<<endl;
+}
+
+int main(){
+	node *head = NULL;
+	int t;
+	cin>>t;
+	while (t--){
+		string s;
+		cin>>s;
+		if (s == "PUSHFRONT"){
+			int a;
+			cin>>a;
+			pushf(head,a);
+		}else if (s == "POPFRONT"){
+			popf(head);
+		}else if (s == "PRINTFRONT"){
+			if (head != NULL){
+				printf(head);
+			}else{
+				cout<<"NONE"<<endl;	
+			}
+		}else if (s == "PUSHBACK"){
+			int b;
+			cin>>b;
+			pushb(head,b);
+		}else if (s == "POPBACK"){
+			popb(head);
+		}else{
+			if (head == NULL)
+				cout<<"NONE"<<endl;
+			else
+				printb(head);
+		}
+	}
+	
+	return 0;
+}
