@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	string data;
+	node *next;	
+};
+
+typedef struct node node;
+
+node *makenode(string s){
+	node *newnode = new node();
+	newnode -> data = s;
+	newnode -> next = NULL;
+	
+	return newnode;
+}
+
+void push(node* &head,string s){
+	node *newnode = makenode(s);
+	if (head == NULL){
+		head = newnode;
+	}else{
+		newnode -> next = head;
+		head = newnode;
+	}
+}
+
+void pop(node* &head){
+	if (head == NULL)
+		return;
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	node *temp = head;
+	head = head -> next;
+	
+	delete temp;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	cin.ignore();
+	while (t--){
+		int cnt = 1;
+		node *head = NULL;
+		string s;
+		getline(cin,s);
+		for (char c : s){
+			if (c == '('){
+				push(head,string(1,c));
+			}else if (c == '+' || c == '-' || c =='/' || c == '*'){
+				push(head,string(1,c));
+			}else if (c == ')'){
+				bool ok = false;
+				while (head != NULL && head -> data != "("){
+					if (head -> data == "+" || head -> data == "-" || head -> data == "/" || head -> data == "*")
+						ok = true;
+					pop(head);
+				}
+				if (head != NULL && head -> data == "(")
+					pop(head);
+				if (ok == false){
+					cnt = 0;
+					break;
+				}
+			}
+		}
+		if (cnt == 1)
+			cout<<"No"<<endl;
+		else
+			cout<<"Yes"<<endl;
+	}
+	
+	return 0;
+}
