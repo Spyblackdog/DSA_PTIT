@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct node{
+	int data;
+	node *next;	
+};
+
+node *makenode(int x){
+	node *newnode = new node();
+	newnode -> next = NULL;
+	newnode -> data = x;
+	
+	return newnode;
+}
+
+void push(node* &head,int x){
+	node *newnode = makenode(x);
+	if (head == NULL){
+		head = newnode;
+	}else{
+		node *temp = head;
+		while (temp -> next != NULL){
+			temp = temp -> next;
+		}
+		temp -> next = newnode;
+	}
+}
+
+void pop(node* &head,node* &nodedl){
+	if (head == NULL || nodedl == NULL){
+		return;
+	}
+	if (head -> next == NULL){
+		delete head;
+		head = NULL;
+		return;
+	}
+	if (head == nodedl){
+		head = head -> next;
+		delete nodedl;
+		return;
+	}
+	node *temp = head;
+	while (temp != NULL && temp -> next != nodedl){
+		temp = temp -> next;
+	}
+	if (temp != NULL){
+		temp -> next = nodedl -> next;
+		delete nodedl;
+	}
+}
+
+void duyet(node *head){
+	while (head != NULL){
+		cout<<head -> data<<" ";
+		head = head -> next;
+	}
+}
+
+bool empty(node *head){
+	return head == NULL;
+}
+
+int main(){
+	node *head = NULL;
+	int n;
+	cin>>n;
+	while (n--){
+		int a;
+		cin>>a;
+		push(head,a);
+	}
+	node *temp = head;
+	while (temp != NULL){
+		node *run = temp;
+		while (run -> next != NULL){
+			if (run -> next -> data == temp -> data){
+				node *dl = run -> next;
+				run -> next = run -> next -> next;
+				delete dl;
+			}else{
+				run = run -> next;
+			}
+		}
+		temp = temp -> next;
+	}
+	duyet(head);
+	
+	return 0;
+}
