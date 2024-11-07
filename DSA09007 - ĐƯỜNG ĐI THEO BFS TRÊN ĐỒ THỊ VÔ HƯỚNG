@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool ok[10005];
+vector <int> v[10005];
+int parent[100005];
+
+void bfs(int u){
+	queue <int> q;
+	q.push(u);
+	ok[u] = true;
+	while (!q.empty()){
+		int num = q.front();
+		q.pop();
+		for (auto x : v[num]){
+			if (!ok[x]){
+				q.push(x);
+				ok[x] = true;
+				parent[x] = num;
+			}
+		}
+	}
+}
+
+void check(int x,int y){
+	memset(ok,false,sizeof(ok));
+	bfs(x);
+	if (!ok[x])
+		cout<<-1;
+	else{
+		vector <int> p;
+		while (y != x){
+			p.push_back(y);
+			y = parent[y];
+		}
+		p.push_back(x);
+		reverse(p.begin(),p.end());
+		for (auto e : p)
+			cout<<e<<" ";
+	}
+	cout<<endl;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n,m,z,c;
+		cin>>n>>m>>z>>c;
+		for (int i=1;i<=m;i++){
+			int x,y;
+			cin>>x>>y;
+			v[x].push_back(y);
+			v[y].push_back(x);
+		}
+		check(z,c);
+		for (int i=1;i<=n;i++)
+		    v[i].clear();
+	}
+	
+	return 0;
+}
