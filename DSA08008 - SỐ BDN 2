@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+#define ll long long
+
+using namespace std;
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		ll n;
+		cin>>n;
+		queue <string> q;
+		q.push("1");
+		while (!q.empty()){
+			if (stoll(q.front()) % n == 0){
+				cout<<q.front()<<endl;
+				break;	
+			}
+			string s = q.front();
+			q.pop();
+			q.push(s + "0");
+			q.push(s + "1");
+		}
+	}
+	
+	return 0;
+}
