@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string ans;
+
+void Try(string s,int k,int index){
+	if (s > ans)
+		ans = s;
+	if (k == 0)
+		return;
+	else{
+		for (int i=index;i<s.length()-1;i++){
+			for (int j=i+1;j<s.length();j++){
+				if (s[j] > s[i]){
+					swap(s[j],s[i]);
+					Try(s,k-1,i+1);
+					swap(s[i],s[j]);
+				}
+			}
+		}
+	}
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int k;
+		cin>>k;
+		string s;
+		cin>>s;
+		ans = s;
+		Try(s,k,0);
+		cout<<ans<<endl;
+	}
+	
+	
+	return 0;
+}
