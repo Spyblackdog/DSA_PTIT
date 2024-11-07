@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool ok[10005];
+vector <int> v[10005];
+
+void dfs(int u){
+	ok[u] = true;
+	for (auto x : v[u]){
+		if (!ok[x]){
+			dfs(x);
+		}
+	}
+}
+
+void check(int x,int y){
+	memset(ok,false,sizeof(ok));
+	dfs(x);
+	if (ok[x] == true && ok[y] == true)
+		cout<<"YES";
+	else
+		cout<<"NO";
+	cout<<endl;
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n,m;
+		cin>>n>>m;
+		for (int i=1;i<=m;i++){
+			int x,y;
+			cin>>x>>y;
+			v[x].push_back(y);
+			v[y].push_back(x);
+		}
+		memset(ok,false,sizeof(ok));
+		dfs(1);
+		int l;
+		cin>>l;
+		while (l--){
+			int z,c;
+			cin>>z>>c;
+//			if (ok[z] == true && ok[c] == true)
+//				cout<<"YES"<<endl;
+//			else
+//				cout<<"NO"<<endl;
+			check(z,c);	
+		}
+		for (int i=1;i<=n;i++)
+		    v[i].clear();
+	}
+	
+	return 0;
+}
