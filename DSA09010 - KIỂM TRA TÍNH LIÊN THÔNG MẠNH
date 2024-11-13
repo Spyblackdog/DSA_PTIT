@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector <int> v1[10005],v2[10005];
+bool ok1[10005],ok2[10005];
+stack <int> s;
+
+void dfs1(int u){
+	ok1[u] = true;
+	for (auto x : v1[u]){
+		if (!ok1[x]){
+			dfs1(x);
+		}
+	}
+	s.push(u);
+}
+
+void dfs2(int u){
+	ok2[u] = true;
+	for (auto x : v2[u]){
+		if (!ok2[x]){
+			dfs2(x);
+		}
+	}
+}
+
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n,m;
+		cin>>n>>m;
+		for (int i=1;i<=n;i++){
+			v1[i].clear();
+			v2[i].clear();
+		}
+		for (int i=1;i<=m;i++){
+			int x,y;
+			cin>>x>>y;
+			v1[x].push_back(y);
+			v2[y].push_back(x);
+		}
+		memset(ok1,false,sizeof(ok1));
+		memset(ok2,false,sizeof(ok2));
+		for (int i=1;i<=n;i++){
+			if (!ok1[i])
+				dfs1(i);
+		}
+		int cnt = 0;
+		while (!s.empty()){
+			int num = s.top();
+			s.pop();
+			if (!ok2[num]){
+				dfs2(num);
+				cnt++;
+			}
+		}
+		if (cnt == 1)
+			cout<<"YES";
+		else
+			cout<<"NO";	
+		cout<<endl;
+	}
+	
+	return 0;
+}
